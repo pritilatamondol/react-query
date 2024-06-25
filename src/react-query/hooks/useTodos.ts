@@ -8,16 +8,18 @@ type Todo = {
     userid: number;
     completed: boolean
 }
-const useTodos = () => {
+const useTodos =() =>{
+
     const fetchTodos = () => 
         axios.get<Todo[]>('https://jsonplaceholder.typicode.com/todos')
         //fetch('https://xjsonplaceholder.typicode.com/todos')
         .then(res=>res.data);
 
-        return useQuery< Todo[], Error>( {
-            queryKey: [ 'todos'],
-            queryFn: fetchTodos
-        });
+    return useQuery< Todo[], Error>( {
+        queryKey: [ 'todos'],
+        queryFn: fetchTodos,
+        staleTime: 10*1000, //10s
+    });
     
 }
 
